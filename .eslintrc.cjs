@@ -19,7 +19,7 @@ const config = {
   parserOptions: {
     project: path.join(__dirname, 'tsconfig.json'),
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'import', 'simple-import-sort'],
   extends: [
     'next/core-web-vitals',
     'plugin:@typescript-eslint/recommended',
@@ -36,6 +36,25 @@ const config = {
       },
     ],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+    'simple-import-sort/exports': 'error',
+    'import/first': 'error',
+    'import/order': [
+      'error',
+      {
+        alphabetize: { order: 'asc', caseInsensitive: true },
+        'newlines-between': 'always',
+      },
+    ],
   },
 }
 
