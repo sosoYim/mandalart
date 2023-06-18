@@ -8,10 +8,11 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "db:push": "npx prisma db push"
+    "db:push": "npx prisma db push",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "@prisma/client": "^4.11.0",
+    "@prisma/client": "^4.15.0",
     "@tanstack/react-query": "^4.28.0",
     "@trpc/client": "^10.18.0",
     "@trpc/next": "^10.18.0",
@@ -29,17 +30,30 @@
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.56.0",
     "autoprefixer": "^10.4.14",
-    "eslint": "^8.36.0",
+    "eslint": "^8.43.0",
     "eslint-config-next": "^13.2.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-sort-destructure-keys": "^1.5.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
+    "eslint-plugin-tailwindcss": "^3.12.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.2",
     "postcss": "^8.4.21",
-    "prettier": "^2.8.6",
+    "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.6",
-    "prisma": "^4.14.1",
+    "prisma": "^4.15.0",
     "tailwindcss": "^3.3.0",
     "typescript": "^5.0.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --cache --fix"
   },
   "ct3aMetadata": {
     "initVersion": "7.12.0"

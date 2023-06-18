@@ -1,5 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+//Prisma schema file https://pris.ly/d/prisma-schema
 
 datasource db {
   provider     = "mysql"
@@ -11,12 +10,42 @@ generator client {
     provider = "prisma-client-js"
 }
 
-// chirp exemple
-model Post{
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    content String @db.VarChar(255)
-    authorId String
+// Mandalart===================================
 
-    @@index([authorId])
+model Mandalart {
+  id        Int       @id @default(autoincrement())
+  userId    String   
+  content  String
+  color     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  goals     Goal[]
+}
+
+model Goal {
+  id          Int        @id @default(autoincrement())
+  mandalartId Int        
+  color       String?    // ? makes it nullable
+  content     String
+  isCompleted Boolean
+  order       Int
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  mandalart   Mandalart  @relation(fields: [mandalartId], references: [id])
+  todos       Todo[]
+
+  @@index([mandalartId])
+}
+
+model Todo {
+  id         Int      @id @default(autoincrement())
+  goalId     Int
+  content    String
+  isCompleted Boolean @default(false)
+  order      Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  goal       Goal     @relation(fields: [goalId], references: [id])
+
+  @@index([goalId])
 }
