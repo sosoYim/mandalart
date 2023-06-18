@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys-fix/sort-keys-fix */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path')
 
@@ -19,7 +20,14 @@ const config = {
   parserOptions: {
     project: path.join(__dirname, 'tsconfig.json'),
   },
-  plugins: ['@typescript-eslint', 'import', 'simple-import-sort'],
+  plugins: [
+    '@typescript-eslint',
+    'import',
+    'simple-import-sort',
+    'sort-destructure-keys',
+    'sort-keys-fix',
+    'react',
+  ],
   extends: [
     'next/core-web-vitals',
     'plugin:@typescript-eslint/recommended',
@@ -55,6 +63,26 @@ const config = {
         'newlines-between': 'always',
       },
     ],
+    '@typescript-eslint/naming-convention': [
+      // ref https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
+      'error',
+      { selector: 'variable', format: ['camelCase', 'UPPER_CASE'] },
+      {
+        selector: 'variable',
+        types: ['function'],
+        format: ['camelCase', 'PascalCase'],
+      },
+      {
+        selector: 'function',
+        format: ['camelCase', 'PascalCase'],
+      },
+      { selector: 'typeLike', format: ['PascalCase'] },
+    ],
+    'sort-destructure-keys/sort-destructure-keys': 'error',
+    'sort-keys-fix/sort-keys-fix': ['error', 'asc', { natural: true }],
+    'import/no-anonymous-default-export': 'off',
+    'react/require-default-props': 'off',
+    'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
   },
 }
 
