@@ -1,5 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+//Prisma schema file https://pris.ly/d/prisma-schema
 
 datasource db {
   provider     = "mysql"
@@ -11,21 +10,11 @@ generator client {
     provider = "prisma-client-js"
 }
 
-// chirp exemple
-model Post{
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    content String @db.VarChar(255)
-    authorId String
-
-    @@index([authorId])
-}
-
 // Mandalart===================================
 
 model Mandalart {
   id        Int       @id @default(autoincrement())
-  userId    String
+  userId    String   
   content  String
   color     String
   createdAt DateTime  @default(now())
