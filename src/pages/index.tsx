@@ -1,11 +1,9 @@
-import { type NextPage } from 'next'
 import Head from 'next/head'
 
-import Mandalart from '@/components/Mandalart'
+import Mandalart from '@/components/MandalartBoard'
 import { api } from '@/utils/api'
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const Home: NextPage = () => {
+export default function Home() {
   const MOCK_USER_ID = '임라임'
   const { data, isError, isLoading } =
     api.mandalart.getMandalarts.useQuery(MOCK_USER_ID)
@@ -50,7 +48,7 @@ const Home: NextPage = () => {
   }
 
   const resetHandler = () => {
-    const isConfirmed = confirm('정말로 리셋할거야?')
+    const isConfirmed = confirm('정말로 리셋할거야?8ㅁ8')
     if (isConfirmed) {
       try {
         reset()
@@ -70,16 +68,19 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center">
-        Hello mandalart 🌝
-        <button onClick={createMockDataHandler} className="">
-          목데이터 생성
-        </button>
-        <button onClick={resetHandler}>리셋 데이터</button>
-        {data && data[0] && <Mandalart mandalart={data[0]} />}
+      <main className="flex h-[100vh] w-[100vw] flex-col items-center justify-center p-4">
+        <div className="flex flex-col items-center justify-center">
+          Hello mandalart 🌝
+          <button onClick={createMockDataHandler}>목데이터 생성</button>
+          <button onClick={resetHandler}>리셋 데이터</button>
+        </div>
+        {data && data[0] && (
+          <div>
+            <h1 className="text-[pink]">{data[0].content}</h1>
+            <Mandalart mandalart={data[0]} />
+          </div>
+        )}
       </main>
     </>
   )
 }
-
-export default Home

@@ -1,42 +1,19 @@
-// function Cell({
-//   color = "blue",
-//   content = "",
-//   isCompleted = false,
-//   role = "empty",
-// }: {
-//   color?: string;
-//   content?: string;
-//   isCompleted?: boolean;
-//   role?: "empty" | "goal" | "todo" | "idea";
-// }) {
-//   return (
-//     <div
-//       className="flex h-full w-full flex-col items-center justify-center rounded-md border border-gray-300"
-//       style={{ backgroundColor: color, opacity: isCompleted ? 0.5 : 1 }}
-//     >
-//       <div className="text-sm">{content}</div>
-//     </div>
-//   );
-// }
+import { type ReactNode } from 'react'
 
-function EmptyCell() {
-  return (
-    <div className="flex h-full w-full flex-col items-center justify-center rounded-md border border-gray-600">
-      empty
-    </div>
-  )
-}
+import EmptyCell from '../EmptyCell'
 
 type GridProps<T extends { order: number }> = {
   items: T[]
-  renderItem: (item: T) => React.ReactNode
-  center?: { content: string; color?: string }
+  renderCell: (item: T | undefined) => React.ReactNode
+  center?: ReactNode | ReactNode[]
+  className?: string
 }
 
 export default function Grid<T extends { order: number }>({
   center,
+  className = '',
   items,
-  renderItem,
+  renderCell,
 }: GridProps<T>) {
   const ORDER_TO_GRID_AREA = {
     1: '1 / 1 / span 1 / span 1',
@@ -58,18 +35,18 @@ export default function Grid<T extends { order: number }>({
         className="flex h-full w-full flex-col items-center justify-center rounded-md border border-gray-300"
         style={{ gridArea }}
       >
-        {item ? renderItem(item) : <EmptyCell />}
+        {renderCell(item)}
       </div>
     )
   })
 
   return (
-    <div className="grid grid-cols-3 grid-rows-3 gap-4">
+    <div className={`grid grid-cols-3 grid-rows-3 gap-4 ${className}`}>
       <div
         className="flex h-full w-full flex-col items-center justify-center rounded-md border border-gray-600"
         style={{ gridArea: '2 / 2 / span 1 / span 1' }}
       >
-        {center?.content}
+        {center}
       </div>
       {cells}
     </div>
